@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block title %}Medicine Scanner – Arogya Setu AI{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1 class="page-title">🔬 AI Medicine Scanner</h1>
+  <p class="page-sub">Take a photo or upload an image of your medicine for instant AI identification</p>
+</div>
+
+<!-- Plan Badge -->
+<div class="plan-badge-bar" id="planBadgeBar">
+  <span id="planBadgeLabel">Loading plan…</span>
+  <span class="scan-counter" id="scanCounter"></span>
+</div>
+
+<!-- Input Methods -->
+<div class="scanner-container">
+  <div class="input-tabs" id="inputTabs">
+    <button class="tab-btn active" id="tab-camera" onclick="switchTab('camera')">
+      📷 Camera
+    </button>
+    <button class="tab-btn" id="tab-upload" onclick="switchTab('upload')">
+      📁 Upload Image
+    </button>
+  </div>
+
+  <!-- Camera Tab -->
+  <div class="tab-panel" id="panel-camera">
+    <div class="camera-wrapper" id="cameraWrapper">
+      <video id="cameraFeed" autoplay playsinline></video>
+      <canvas id="captureCanvas" style="display:none;"></canvas>
+      <div class="camera-overlay" id="cameraOverlay">
+        <div class="camera-frame"></div>
+        <p class="camera-hint">Point at a medicine label</p>
+      </div>
+    </div>
+    <div class="camera-controls">
+      <button class="btn btn-primary" id="btn-start-camera" onclick="startCamera()">
+        📷 Start Camera
+      </button>
+      <button class="btn btn-success" id="btn-capture" onclick="capturePhoto()" style="display:none;">
+        🎯 Capture Photo
+      </button>
+      <button class="btn btn-danger" id="btn-stop-camera" onclick="stopCamera()" style="display:none;">
+        ✖ Stop Camera
+      </button>
+    </div>
+  </div>
+
+  <!-- Upload Tab -->
+  <div class="tab-panel hidden" id="panel-upload">
+    <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
+      <div class="upload-icon">📁</div>
+      <p class="upload-title">Click or Drag & Drop</p>
+      <p class="upload-sub">Supports JPG, PNG, WEBP</p>
+      <input type="file" id="fileInput" accept="image/*" style="display:none;" onchange="handleFileSelect(event)" />
+    </div>
+    <div class="preview-container hidden" id="previewContainer">
+      <img id="previewImg" src="" alt="Preview" class="preview-img" />
+      <button class="btn btn-ghost" id="btn-clear-upload" onclick="clearUpload()">✖ Clear</button>
+    </div>
+  </div>
+
+  <!-- Preview of captured image -->
+  <div class="captured-preview hidden" id="capturedPreview">
+    <img id="capturedImg" src="" alt="Captured" class="preview-img" />
+    <button class="btn btn-ghost" id="btn-retake" onclick="retakePhoto()">🔄 Retake</button>
+  </div>
+
+  <!-- Scan Button -->
+  <button class="btn btn-primary btn-full btn-large" id="btn-scan" onclick="scanMedicine()" disabled>
+    🧠 Analyse with AI
+  </button>
+</div>
+
+<!-- Results Section -->
+<div class="result-section hidden" id="resultSection">
+  <div class="result-card" id="resultCard">
+    <div class="result-header">
+      <h2>🔍 Analysis Result</h2>
+      <span class="result-badge" id="resultBadge">Analysed</span>
+    </div>
+
+    <div class="result-body">
+      <div class="ai-response" id="aiResponseBlock">
+        <pre id="aiResponseText"></pre>
+      </div>
+
+      <div class="reminder-status-block" id="reminderStatusBlock">
+        <div class="reminder-status-icon" id="reminderStatusIcon">📋</div>
+        <p class="reminder-status-text" id="reminderStatusText"></p>
+      </div>
+    </div>
+
+    <div class="result-actions">
+      <button class="btn btn-secondary" id="btn-new-scan" onclick="newScan()">🔄 New Scan</button>
+      <a href="/reminders" class="btn btn-ghost" id="btn-goto-reminders">💊 Manage Reminders</a>
+    </div>
+  </div>
+
+  <div class="disclaimer-box">
+    <p>⚠️ <strong>Medical Disclaimer:</strong> This AI identification is for informational purposes only and is not a substitute for professional medical advice. Always consult a healthcare professional.</p>
+  </div>
+</div>
+
+<!-- Loading Overlay -->
+<div class="scan-loading hidden" id="scanLoading">
+  <div class="scan-loading-inner">
+    <div class="scan-pulse"></div>
+    <p>Analysing medicine…</p>
+    <p class="sub-text">Powered by Gemini AI</p>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="/static/js/scanner.js"></script>
+{% endblock %}

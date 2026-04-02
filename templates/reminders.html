@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}Medicine Reminders – Arogya Setu AI{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1 class="page-title">💊 Medicine Reminders</h1>
+  <p class="page-sub">Add, edit, and track all your daily medicines</p>
+</div>
+
+<!-- SOS Contacts Section -->
+<div class="sos-section" id="sosSection">
+  <div class="sos-header" onclick="toggleSOS()">
+    <h2>🚨 SOS Alert Contacts</h2>
+    <span id="sosToggleIcon">▼</span>
+  </div>
+  <div class="sos-body collapsed" id="sosBody">
+    <p class="sos-desc">These contacts will be notified by email when a medicine is missed.</p>
+    <div id="contactsList" class="contacts-list"></div>
+    <div class="add-contact-form">
+      <input type="text" id="contactName" placeholder="Contact Name" class="form-input" />
+      <input type="email" id="contactEmail" placeholder="Email Address" class="form-input" />
+      <button class="btn btn-primary" id="btn-add-contact" onclick="addContact()">+ Add Contact</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add / Edit Medicine Form -->
+<div class="form-card" id="medicineFormCard">
+  <h2 id="formTitle">➕ Add New Medicine</h2>
+  <input type="hidden" id="editMedId" value="" />
+  <div class="form-grid">
+    <div class="form-group">
+      <label for="medName" class="form-label">Medicine Name *</label>
+      <input type="text" id="medName" placeholder="e.g., Paracetamol" class="form-input" />
+    </div>
+    <div class="form-group">
+      <label for="medTime" class="form-label">Time *</label>
+      <input type="time" id="medTime" class="form-input" />
+    </div>
+    <div class="form-group">
+      <label for="medDays" class="form-label">Frequency</label>
+      <select id="medDays" class="form-input">
+        <option value="Daily">Daily</option>
+        <option value="Mon,Wed,Fri">Mon, Wed, Fri</option>
+        <option value="Tue,Thu,Sat">Tue, Thu, Sat</option>
+        <option value="Weekdays">Weekdays</option>
+        <option value="Weekends">Weekends</option>
+        <option value="Custom">Custom</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-actions">
+    <button class="btn btn-primary" id="btn-save-med" onclick="saveMedicine()">💾 Save Medicine</button>
+    <button class="btn btn-ghost hidden" id="btn-cancel-edit" onclick="cancelEdit()">✖ Cancel</button>
+  </div>
+</div>
+
+<!-- Medicines List -->
+<div class="medicines-list-section" id="medicinesListSection">
+  <div class="section-header">
+    <h2 class="section-title">Your Medicines</h2>
+    <div class="filter-row">
+      <button class="filter-btn active" id="filter-all" onclick="filterMedicines('all')">All</button>
+      <button class="filter-btn" id="filter-pending" onclick="filterMedicines('Pending')">Pending</button>
+      <button class="filter-btn" id="filter-taken" onclick="filterMedicines('Taken')">Taken</button>
+      <button class="filter-btn" id="filter-missed" onclick="filterMedicines('Missed')">Missed</button>
+    </div>
+  </div>
+
+  <div id="medicinesList" class="medicines-list-grid">
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading medicines…</p>
+    </div>
+  </div>
+</div>
+
+<!-- Check Missed Button -->
+<div class="check-missed-bar">
+  <button class="btn btn-danger btn-large" id="btn-check-missed" onclick="checkMissed()">
+    🚨 Check & Trigger SOS for Missed Medicines
+  </button>
+</div>
+
+<!-- Toast -->
+<div class="toast hidden" id="toast"></div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="/static/js/reminders.js"></script>
+{% endblock %}

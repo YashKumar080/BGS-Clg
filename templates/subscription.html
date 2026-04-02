@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block title %}Subscription Plans – Arogya Setu AI{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1 class="page-title">⭐ Choose Your Plan</h1>
+  <p class="page-sub">Select the plan that's right for you and your family</p>
+</div>
+
+<!-- Current Plan Banner -->
+<div class="current-plan-banner" id="currentPlanBanner">
+  <div class="cpb-icon">🏷️</div>
+  <div class="cpb-text">
+    <strong>Current Plan: <span id="activePlanLabel">Loading…</span></strong>
+    <br /><small id="activePlanDesc">–</small>
+  </div>
+</div>
+
+<!-- Plans Grid -->
+<div class="plans-grid" id="plansGrid">
+
+  <!-- Free Plan -->
+  <div class="plan-card" id="plan-free" data-plan="Free">
+    <div class="plan-badge-tag">Free Forever</div>
+    <div class="plan-icon">🌱</div>
+    <h2 class="plan-name">Free Plan</h2>
+    <div class="plan-price">
+      <span class="price-amount">₹0</span>
+      <span class="price-period">/month</span>
+    </div>
+    <ul class="plan-features">
+      <li>✅ AI Medicine Scanning (5/day)</li>
+      <li>✅ Up to 5 Medicine Reminders</li>
+      <li>✅ SOS Console Alerts</li>
+      <li>❌ Email SOS Alerts</li>
+      <li>❌ Priority Support</li>
+    </ul>
+    <button class="btn btn-select" id="btn-select-free" onclick="selectPlan('Free')">
+      Select Free Plan
+    </button>
+  </div>
+
+  <!-- Pro Plan (Recommended) -->
+  <div class="plan-card plan-recommended" id="plan-pro" data-plan="Pro">
+    <div class="plan-badge-tag recommended-tag">⭐ Recommended</div>
+    <div class="plan-icon">🚀</div>
+    <h2 class="plan-name">Pro Plan</h2>
+    <div class="plan-price">
+      <span class="price-amount">₹199</span>
+      <span class="price-period">/month</span>
+    </div>
+    <div class="demo-label">Demo Mode – No Payment Required</div>
+    <ul class="plan-features">
+      <li>✅ Unlimited AI Scans</li>
+      <li>✅ Unlimited Reminders</li>
+      <li>✅ Email SOS Alerts</li>
+      <li>✅ Priority Notifications</li>
+      <li>✅ Detailed Medicine History</li>
+    </ul>
+    <button class="btn btn-select btn-pro" id="btn-select-pro" onclick="selectPlan('Pro')">
+      Activate Pro (Demo)
+    </button>
+  </div>
+
+  <!-- Family Plan -->
+  <div class="plan-card" id="plan-family" data-plan="Family">
+    <div class="plan-badge-tag">Best Value</div>
+    <div class="plan-icon">👨‍👩‍👧‍👦</div>
+    <h2 class="plan-name">Family Plan</h2>
+    <div class="plan-price">
+      <span class="price-amount">₹349</span>
+      <span class="price-period">/month</span>
+    </div>
+    <div class="demo-label">Demo Mode – No Payment Required</div>
+    <ul class="plan-features">
+      <li>✅ Everything in Pro</li>
+      <li>✅ Multiple Users (up to 5)</li>
+      <li>✅ Advanced Family Alerts</li>
+      <li>✅ Group SOS Notifications</li>
+      <li>✅ Dedicated Family Dashboard</li>
+    </ul>
+    <button class="btn btn-select btn-family" id="btn-select-family" onclick="selectPlan('Family')">
+      Activate Family (Demo)
+    </button>
+  </div>
+
+</div>
+
+<!-- Success Modal -->
+<div class="modal-overlay hidden" id="successModal">
+  <div class="modal-box" id="successModalBox">
+    <div class="modal-icon">🎉</div>
+    <h2 class="modal-title">Plan Activated!</h2>
+    <p class="modal-body" id="modalBody">Your subscription has been activated in Demo Mode.</p>
+    <p class="modal-note">⚠️ This is a simulation. No payment has been charged.</p>
+    <button class="btn btn-primary" id="btn-modal-close" onclick="closeModal()">Got It!</button>
+  </div>
+</div>
+
+<!-- FAQ Section -->
+<section class="faq-section" id="faqSection">
+  <h2 class="section-title center">Frequently Asked Questions</h2>
+  <div class="faq-grid">
+    <div class="faq-item" id="faq1">
+      <h3>Is this a real payment system?</h3>
+      <p>No. This is a demo simulation. No payment is required or charged. Plan upgrades are instant and free for demonstration purposes.</p>
+    </div>
+    <div class="faq-item" id="faq2">
+      <h3>Will my plan persist after reload?</h3>
+      <p>Yes! Your selected plan is saved in the local SQLite database and will be remembered even after you close and reopen the app.</p>
+    </div>
+    <div class="faq-item" id="faq3">
+      <h3>What limits does the Free plan have?</h3>
+      <p>The Free plan simulates a limit of 5 AI scans per day and up to 5 medicine reminders. Pro and Family plans have no such limits.</p>
+    </div>
+    <div class="faq-item" id="faq4">
+      <h3>How do SOS alerts work?</h3>
+      <p>When a medicine is missed, the system logs an alert and can send email notifications to registered SOS contacts (requires SMTP setup in .env).</p>
+    </div>
+  </div>
+</section>
+
+<!-- Toast -->
+<div class="toast hidden" id="toast"></div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="/static/js/subscription.js"></script>
+{% endblock %}

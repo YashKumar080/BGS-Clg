@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block title %}Arogya Setu AI – Home{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero" id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🏥 Smart Elder Care</div>
+    <h1 class="hero-title">Your Personal <span class="gradient-text">Medicine Guardian</span></h1>
+    <p class="hero-sub">AI-powered medicine recognition, smart reminders, and instant SOS alerts — all in one place.</p>
+    <div class="hero-btns">
+      <a href="/scanner" class="btn btn-primary" id="btn-scan-hero">
+        <span>🔬</span> Scan Medicine
+      </a>
+      <a href="/reminders" class="btn btn-secondary" id="btn-reminders-hero">
+        <span>💊</span> View Reminders
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Status Cards Row -->
+<section class="status-section" id="statusSection">
+  <div class="status-cards">
+    <div class="status-card card-green" id="card-total">
+      <div class="status-icon">💊</div>
+      <div class="status-info">
+        <div class="status-num" id="totalCount">–</div>
+        <div class="status-label">Total Medicines</div>
+      </div>
+    </div>
+    <div class="status-card card-blue" id="card-taken">
+      <div class="status-icon">✅</div>
+      <div class="status-info">
+        <div class="status-num" id="takenCount">–</div>
+        <div class="status-label">Taken Today</div>
+      </div>
+    </div>
+    <div class="status-card card-red" id="card-missed">
+      <div class="status-icon">⚠️</div>
+      <div class="status-info">
+        <div class="status-num" id="missedCount">–</div>
+        <div class="status-label">Missed Today</div>
+      </div>
+    </div>
+    <div class="status-card card-purple" id="card-plan">
+      <div class="status-icon">⭐</div>
+      <div class="status-info">
+        <div class="status-num" id="currentPlan">–</div>
+        <div class="status-label">Current Plan</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Today's Medicines -->
+<section class="today-section" id="todaySection">
+  <div class="section-header">
+    <h2 class="section-title">Today's Medicines</h2>
+    <a href="/reminders" class="btn btn-ghost" id="btn-manage">Manage All →</a>
+  </div>
+  <div class="medicines-grid" id="todayMedicines">
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading medicines…</p>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section" id="featuresSection">
+  <h2 class="section-title center">How Arogya Setu AI Helps You</h2>
+  <div class="features-grid">
+    <div class="feature-card" id="feat-scan">
+      <div class="feature-icon">🔬</div>
+      <h3>AI Medicine Scanner</h3>
+      <p>Point your camera at any medicine strip or bottle. Our AI instantly identifies it and checks your schedule.</p>
+    </div>
+    <div class="feature-card" id="feat-remind">
+      <div class="feature-icon">⏰</div>
+      <h3>Smart Reminders</h3>
+      <p>Set daily or custom reminders. Never miss a dose again. Auto-tracks taken and missed medicines.</p>
+    </div>
+    <div class="feature-card" id="feat-sos">
+      <div class="feature-icon">🚨</div>
+      <h3>SOS Alerts</h3>
+      <p>Automatically notifies your family when a medicine is missed. Peace of mind for everyone.</p>
+    </div>
+    <div class="feature-card" id="feat-ai">
+      <div class="feature-icon">🧠</div>
+      <h3>Gemini AI Power</h3>
+      <p>Powered by Google Gemini – advanced vision AI that understands medicine labels with high accuracy.</p>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="/static/js/home.js"></script>
+{% endblock %}
